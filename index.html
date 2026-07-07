@@ -1,4 +1,5 @@
 
+<meta charset="utf-8">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
@@ -149,7 +150,7 @@ h3.ss{font-size:14px;margin-top:24px;color:#176546}.bd{font-size:14px;line-heigh
   <p class="bd">Companies House is the UK public company registry, available via a free API. A bespoke scraper pulls director age, company age, SIC codes, and filing patterns to identify UK-incorporated businesses and investment vehicles that fit the exit or seller profile. No ongoing subscription — the data is entirely free. UK targets only.</p>
 
   <h3 class="ss">Bespoke news signal scraper <span class="bge bge-s">Custom build</span></h3>
-  <p class="bd">Monitors NL and UK business press — including Dutch-language sources — for exit-intent signals: retirement announcements, succession planning coverage, and sector consolidation stories. Each article is processed by an AI model that classifies signal strength and extracts relevant company and contact details. Deployed on a Hetzner VPS at a flat €9/month running cost regardless of volume processed. This cost is not normalised to a per-contact rate — it is a fixed monthly overhead for the signal feed.</p>
+  <p class="bd">Monitors NL and UK business press — including Dutch-language sources — for exit-intent signals: retirement announcements, succession planning coverage, and sector consolidation stories. The monthly operating stack is Hetzner VPS hosting (€8/month), Apify for LinkedIn post scraping (€20/month), and Haiku or DeepSeek V4 processing to digest scraped pages and control crawl4ai (€40/month). These costs are not normalised to a per-contact rate — they are fixed monthly overhead for the signal feed.</p>
   <p class="bd">One honest note on this method: genuinely off-market deals rarely appear in press. What the scraper surfaces is early-stage exit intent — owners who have started talking publicly about transition, not owners who have already quietly engaged a broker. Lower hit rate than database sources, but it catches contacts who have not yet been approached.</p>
 
   <div class="sl">
@@ -171,8 +172,8 @@ h3.ss{font-size:14px;margin-top:24px;color:#176546}.bd{font-size:14px;line-heigh
     </div>
     <div class="ci" id="src-newsScraper" onclick="toggleSrc('newsScraper')">
       <div class="cb"><i class="ti ti-check ck" aria-hidden="true"></i></div>
-      <div class="cc"><div class="cl">Bespoke news signal scraper</div><div class="cd">NL + UK press · shared Hetzner VPS · AI-powered extraction</div></div>
-      <div class="cp"><div class="ps">€729 one-time</div><div class="pk">€9 / mo flat</div></div>
+      <div class="cc"><div class="cl">Bespoke news signal scraper</div><div class="cd">NL + UK press · Hetzner, Apify LinkedIn post scraper, and AI/crawl4ai processing</div></div>
+      <div class="cp"><div class="ps">€729 one-time</div><div class="pk">€68 / mo flat</div></div>
     </div>
   </div>
   <div id="apify-nl" class="nl" style="display:none;">When Sales Navigator and Crunchbase are both selected, the Apify platform fee (€27/mo) is shared between them and counted once.</div>
@@ -314,7 +315,7 @@ const SRCS=[
   {id:'salesNav',      label:'LinkedIn Sales Navigator',fixedBase:137,perk:0.14,ot:0,  apify:true},
   {id:'crunchbase',    label:'Crunchbase',              fixedBase:72, perk:6,   ot:0,  apify:true},
   {id:'companiesHouse',label:'Companies House scraper', fixedBase:0,  perk:0,   ot:300,apify:false},
-  {id:'newsScraper',   label:'News signal scraper',     fixedBase:9,  perk:0,   ot:729,apify:false}
+  {id:'newsScraper',   label:'News signal scraper',     fixedBase:60, perk:0,   ot:729,apify:false}
 ];
 let st={platform:'plusvibe',enrichment:'apollo',infra:'budget',sel:{signalsOS:false},vol:1000,ai:'haiku',services:{coldOps:false,signalsOps:false}};
 function setPlatform(x){st.platform=x;['plusvibe','instantly'].forEach(y=>document.getElementById('btn-platform-'+y).className='tb'+(x===y?' on':''));update();}
@@ -381,7 +382,13 @@ function update(){
     {label:`${inf.inboxes} Outlook inboxes`,detail:'€3.70/inbox/mo',cost:Math.round(inf.inboxes*3.70)},
     {label:`${inf.domains} sending domains`,detail:'€10/domain/yr',cost:Math.round(inf.domains*(10/12))},
     ...(SRCS.some(x=>st.sel[x.id]&&x.apify)?[{label:'Apify',detail:'Shared scraper platform',cost:27}]:[]),
-    ...SRCS.filter(x=>st.sel[x.id]).flatMap(x=>x.fixedBase?[{label:x.label,detail:x.apify?'Source workflow subscription':'Source subscription',cost:x.fixedBase}]:[]),
+    ...SRCS.filter(x=>st.sel[x.id]).flatMap(x=>{
+      if(x.id==='newsScraper')return [
+        {label:'Apify LinkedIn post scraper',detail:'News signal scraper input feed',cost:20},
+        {label:'Haiku / DeepSeek V4 processing',detail:'Digest scraped sites and control crawl4ai',cost:40}
+      ];
+      return x.fixedBase?[{label:x.label,detail:x.apify?'Source workflow subscription':'Source subscription',cost:x.fixedBase}]:[];
+    }),
     {label:st.enrichment==='apollo'?'Apollo Basic':'Clay Launch',detail:'Enrichment platform',cost:st.enrichment==='apollo'?45:170},
     {label:'EmailShield',detail:'10k verifications/mo included',cost:17},
     ...(r.needsHetzner?[{label:'Hetzner CX23',detail:'Shared VPS hosting',cost:8}]:[])
