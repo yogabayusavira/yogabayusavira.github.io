@@ -1,0 +1,449 @@
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+.doc{max-width:680px;margin:0 auto;padding:1.5rem 1rem 3rem;font-family:var(--font-sans);}
+.dh{border-bottom:0.5px solid var(--border-strong);padding-bottom:1.25rem;margin-bottom:2rem;}
+.dh-eye{font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-muted);margin-bottom:6px;}
+h1.dt{font-size:20px;font-weight:500;color:var(--text-primary);margin-bottom:4px;}
+.dm{font-size:12px;color:var(--text-muted);}
+.sec{margin-bottom:2.25rem;}
+h2.sh{font-size:15px;font-weight:500;color:var(--text-primary);padding-bottom:8px;border-bottom:0.5px solid var(--border);margin-bottom:1rem;}
+h3.ss{font-size:13px;font-weight:500;color:var(--text-primary);margin:1.25rem 0 0.375rem;}
+.bd{font-size:13px;color:var(--text-secondary);line-height:1.7;margin-bottom:0.625rem;}
+.pt{width:100%;border-collapse:collapse;font-size:13px;margin:0.75rem 0;}
+.pt th{text-align:left;padding:5px 8px;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);border-bottom:0.5px solid var(--border);background:var(--surface-1);}
+.pt th:not(:first-child){text-align:right;}
+.pt td{padding:8px 8px;border-bottom:0.5px solid var(--border);color:var(--text-primary);vertical-align:top;}
+.pt td:not(:first-child){text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:500;}
+.pt tr:last-child td{border-bottom:none;}
+.pt .brow td{font-weight:500;background:var(--surface-1);}
+small.mn{font-size:11px;color:var(--text-muted);font-weight:400;display:block;margin-top:2px;}
+.tg{display:flex;gap:8px;margin:1rem 0;}
+.tb{flex:1;padding:10px 12px;border:0.5px solid var(--border-strong);border-radius:var(--radius);background:var(--surface-1);cursor:pointer;text-align:left;font-family:inherit;}
+.tb.on{border:2px solid var(--border-accent);background:var(--bg-accent);}
+.tbl{font-size:13px;font-weight:500;color:var(--text-primary);display:block;margin-bottom:2px;}
+.tb.on .tbl{color:var(--text-accent);}
+.tbd{font-size:11px;color:var(--text-muted);display:block;}
+.tb.on .tbd{color:var(--text-accent);opacity:.75;}
+.sl{border:0.5px solid var(--border);border-radius:var(--radius);margin:1rem 0;overflow:hidden;}
+.slh{padding:7px 12px;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);background:var(--surface-1);border-bottom:0.5px solid var(--border);}
+.ci{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-bottom:0.5px solid var(--border);cursor:pointer;user-select:none;}
+.ci:last-child{border-bottom:none;}
+.cb{width:16px;height:16px;border:0.5px solid var(--border-strong);border-radius:3px;background:var(--surface-2);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;}
+.ci.on .cb{background:var(--fill-accent);border-color:var(--fill-accent);}
+.ck{color:#fff;font-size:10px;display:none;}
+.ci.on .ck{display:block;}
+.cc{flex:1;}
+.cl{font-size:13px;font-weight:500;color:var(--text-primary);margin-bottom:2px;}
+.cd{font-size:12px;color:var(--text-muted);line-height:1.4;}
+.cp{text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums;}
+.cp .pk{font-size:13px;font-weight:500;color:var(--text-primary);}
+.cp .ps{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.nl{font-size:12px;color:var(--text-muted);border-left:2px solid var(--border-strong);padding:7px 10px;margin:0.75rem 0;background:var(--surface-1);line-height:1.6;}
+.vr{display:flex;align-items:center;gap:12px;margin:1rem 0;}
+.vv{font-size:14px;font-weight:500;color:var(--text-primary);min-width:150px;text-align:right;font-variant-numeric:tabular-nums;}
+.ss-wrap{margin-top:2.5rem;padding-top:1.5rem;border-top:2px solid var(--border-strong);}
+.st{width:100%;border-collapse:collapse;font-size:13px;margin:0.75rem 0 1.25rem;}
+.st th{padding:6px 8px;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);background:var(--surface-1);border-bottom:0.5px solid var(--border);text-align:left;}
+.st th:last-child{text-align:right;}
+.st td{padding:7px 8px;border-bottom:0.5px solid var(--border);color:var(--text-primary);font-size:13px;font-variant-numeric:tabular-nums;vertical-align:top;}
+.st td:last-child{text-align:right;white-space:nowrap;}
+.st .hr td{padding:0;border-bottom:none;height:8px;}
+.st .gh td:first-child{font-weight:500;font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;background:var(--surface-1);padding:5px 8px;}
+.st .gh td{background:var(--surface-1);}
+.st .sr td{color:var(--text-secondary);padding-left:20px;font-size:12px;}
+.st .tr td{font-weight:500;border-top:0.5px solid var(--border-strong);border-bottom:0.5px solid var(--border-strong);}
+.svc{background:var(--surface-1);border:0.5px solid var(--border);border-radius:var(--radius);padding:0.875rem 1rem;margin:0.75rem 0;}
+.svr{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:0.5px solid var(--border);}
+.svr:last-child{border-bottom:none;}
+.svr span:first-child{color:var(--text-secondary);}
+.svr span:last-child{font-weight:500;font-variant-numeric:tabular-nums;}
+.roi{background:var(--bg-success);border:0.5px solid var(--border-success);border-radius:var(--radius);padding:1rem;margin-top:1rem;}
+.roi-l{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-success);margin-bottom:4px;}
+.roi-t{font-size:13px;color:var(--text-success);line-height:1.6;}
+.bge{display:inline-block;font-size:10px;font-weight:500;padding:2px 7px;border-radius:99px;margin-left:6px;vertical-align:middle;}
+.bge-a{background:var(--bg-accent);color:var(--text-accent);}
+.bge-s{background:var(--bg-success);color:var(--text-success);}
+
+.grand-total{margin:18px 0 6px;padding:20px 22px;border-radius:14px;background:linear-gradient(135deg,#123c2b,#1a6d4b);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px;box-shadow:0 12px 24px #163d2a22}.gt-label{display:block;font-size:13px;font-weight:700;letter-spacing:.02em}.gt-note{display:block;font-size:12px;color:#c8dfd0;margin-top:4px}.grand-total strong{font-size:30px;letter-spacing:-.04em;white-space:nowrap}@media(max-width:520px){.grand-total{align-items:flex-start;flex-direction:column;gap:8px}.grand-total strong{font-size:28px}}
+/* visual refresh */
+:root{
+ --font-sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ --bg:#f3f1eb;--surface-1:#f8f7f3;--surface-2:#fff;
+ --text-primary:#17251f;--text-secondary:#4e5d55;--text-muted:#748078;
+ --border:#d9ddd6;--border-strong:#bfc8bf;--radius:12px;
+ --text-accent:#0b6a4b;--border-accent:#16835e;--bg-accent:#e7f5ed;--fill-accent:#147a57;
+ --bg-success:#eaf6ef;--border-success:#b8dcc7;--text-success:#145b3e;
+}
+body{background:radial-gradient(circle at 12% 5%,#dfeee5 0,transparent 26rem),linear-gradient(135deg,#f5f3ee,#eef4ef);min-height:100vh;color:var(--text-primary)}
+.doc{max-width:920px;margin:38px auto 70px;padding:0;background:#fff;border:1px solid #dce2dc;border-radius:20px;box-shadow:0 22px 65px rgba(23,37,31,.12);overflow:hidden}
+.dh{padding:54px 58px 42px;margin:0;background:linear-gradient(135deg,#112d22,#1b5b42);border:0;position:relative;overflow:hidden}
+.dh:after{content:"";position:absolute;width:310px;height:310px;border:1px solid #ffffff29;border-radius:50%;right:-90px;top:-160px;box-shadow:0 0 0 42px #ffffff0c,0 0 0 84px #ffffff08}
+.dh-eye{color:#b7d8c5;font-weight:700}.dh-eye:before{content:"● ";color:#7ee0aa}
+h1.dt{font-family:Georgia,serif;font-size:39px;line-height:1.05;color:#fff;max-width:650px;margin:10px 0 13px;letter-spacing:-.035em}
+.dm{color:#cce0d4;font-size:13px;letter-spacing:.03em}.sec{padding:34px 58px;margin:0;border-bottom:1px solid #e4e8e3}.ss-wrap{margin:0;padding:42px 58px 56px;border:0;background:#fbfcfa}
+h2.sh{font-family:Georgia,serif;font-size:24px;border:0;padding:0;margin-bottom:13px;letter-spacing:-.02em}
+h2.sh:after{content:"";display:block;width:38px;height:3px;background:#1b8a63;border-radius:9px;margin-top:12px}
+h3.ss{font-size:14px;margin-top:24px;color:#176546}.bd{font-size:14px;line-height:1.78;color:#506057}
+.tg{gap:12px}.tb{padding:16px;border-radius:12px;border:1px solid #d4ddd6;background:#fbfcfa;transition:.18s}.tb:hover{transform:translateY(-1px);box-shadow:0 6px 16px #17302412}.tb.on{border:2px solid #1b8a63;background:#eaf7ef;box-shadow:0 8px 18px #1b8a6318}
+.tbl{font-size:15px}.sl{border-radius:13px;border-color:#d8e0d9;box-shadow:0 4px 14px #17251f08}.slh{padding:11px 15px;background:#f0f5f1;font-weight:700}.ci{padding:14px 15px;transition:background .15s}.ci:hover{background:#f7faf7}.ci.on{background:#eff8f2}.cb{width:19px;height:19px;border-radius:5px}.cl{font-size:14px}.cd{font-size:12px}.cp .pk{color:#126345}.nl{border-left:3px solid #3b9c75;background:#f2f8f4;padding:11px 13px;border-radius:0 8px 8px 0}
+.pt{border:1px solid #dce4dd;border-radius:11px;overflow:hidden}.pt th{background:#f0f5f1;padding:10px}.pt td{padding:11px 10px}.pt tr:hover td{background:#fbfdfb}.pt .ind td:first-child{padding-left:30px}.pt .ind td{font-weight:400;color:var(--text-secondary)}.pt .ind td:last-child{font-weight:500;color:var(--text-primary)}.pt .sub td{padding-top:3px;padding-bottom:3px;font-size:12px}
+.vr{padding:15px 16px;background:#f4f8f5;border:1px solid #dce7df;border-radius:12px}.vv{font-size:15px;color:#126345}input[type=range]{accent-color:#1b8a63;width:100%}.st{border:1px solid #dce4dd;border-radius:12px;overflow:hidden}.st th{background:#eaf3ed;padding:10px}.st td{padding:10px}.st .gh td{background:#f1f6f2}.st .tr td{background:#e8f4ec;color:#123d2b;font-size:14px}.svc{background:linear-gradient(135deg,#f0f7f2,#fbfcfa);border-color:#cfe1d4;border-radius:13px;padding:14px 17px}.svr{padding:9px 0}.roi{border-radius:13px;padding:18px;background:linear-gradient(135deg,#e4f5eb,#f3fbf6)}
+@media(max-width:700px){.doc{margin:0;border-radius:0;border:0}.dh,.sec,.ss-wrap{padding-left:22px;padding-right:22px}.dh{padding-top:38px}h1.dt{font-size:31px}}
+.internal-footer{display:flex;justify-content:space-between;gap:16px;padding:18px 58px;background:#f4f6f3;border-top:1px solid #e0e6e0;color:#758078;font-size:11px;letter-spacing:.04em;text-transform:uppercase}.internal-footer span:last-child{font-weight:700}@media(max-width:700px){.internal-footer{padding:16px 22px;display:block}.internal-footer span{display:block;margin:3px 0}}
+.proposal-cta{margin:30px 0 0;padding:28px;border:1px solid #dbe5dc;border-radius:16px;background:#f5f8f5;display:flex;align-items:center;justify-content:space-between;gap:24px}.proposal-cta h2{margin:0 0 6px;font-size:20px}.proposal-cta p{margin:0;color:#657168;font-size:14px;line-height:1.5}.cta-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.cta-primary,.cta-secondary{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:9px;text-decoration:none;font-size:14px;font-weight:700;white-space:nowrap}.cta-primary{background:#174b34;color:#fff}.cta-secondary{border:1px solid #aebbb1;color:#174b34;background:#fff}@media(max-width:700px){.proposal-cta{margin:24px 18px 0;display:block}.cta-actions{margin-top:18px}.cta-primary,.cta-secondary{flex:1}}
+</style>
+
+<h2 class="sr-only">Deal flow outbound system — cost overview document</h2>
+<div class="doc">
+
+<div class="dh">
+  <div class="dh-eye">Confidential · July 2026</div>
+  <h1 class="dt">Deal flow outbound system — cost overview</h1>
+  <div class="dm">NL · UK · US &nbsp;·&nbsp; Tech & agriculture &nbsp;·&nbsp; Investors & sellers</div>
+</div>
+
+<div class="sec">
+  <h2 class="sh">Strategy, scope & assumptions</h2>
+  <p class="bd">This system is designed to create a qualified, repeatable pipeline of investor, founder, and company conversations across the Netherlands, UK, and US. It is not a guarantee of funding, an acquisition, or a closed transaction. Its job is to identify relevant people, reach them with timely context, and create qualified introductions for the client to progress.</p>
+  <p class="bd"><strong>Qualified contact:</strong> matches the agreed investor, seller, or founder profile; has a verified work email or approved alternative route; is deduplicated against the client’s CRM and exclusion list; has not been contacted within the agreed cooling-off period; and, where Signals OS is selected, has a relevant approved outreach signal.</p>
+  <div class="nl"><strong>Addressable market:</strong> approximately 1,500–3,000 qualified contacts across Netherlands and UK technology and agriculture businesses. The US has a materially larger pool, but is treated as a secondary expansion market because Netherlands and UK are the current priority. Outreach is paced and refreshed rather than exhausting the market immediately.</div>
+</div>
+
+<div class="sec">
+  <h2 class="sh">1. Cold email infrastructure</h2>
+  <p class="bd">Choose an API- and webhook-capable sending platform. Each client uses their own account, domains, and inboxes, so the sending setup is not shared with another client. The selected platform is also used by Signals OS when included; it is not charged again.</p>
+  <h3 class="ss">Select one sending platform</h3>
+  <div class="tg">
+    <button class="tb on" id="btn-platform-plusvibe" onclick="setPlatform('plusvibe')"><span class="tbl">Plusvibe Business · €77/month</span><span class="tbd">API and webhook access for the selected sending setup</span></button>
+    <button class="tb" id="btn-platform-instantly" onclick="setPlatform('instantly')"><span class="tbl">Instantly Hypergrowth · €97/month</span><span class="tbd">API, webhooks, integrations, advanced warmup, and Unibox</span></button>
+  </div>
+  <p class="bd">Inboxes are Outlook as the primary sending account. Google has tightened cold outreach enforcement significantly since 2024 and is more aggressive on spam classification. Outlook is the primary sending channel for this setup because it provides the capacity needed for this workflow and is less restrictive here than the Google-based alternative. Inboxes connect via OAuth, not SMTP. SMTP-connected inboxes hit a hard protocol throttle of around 5 emails per inbox per day. OAuth Outlook supports 15 per day — at three emails per contact, that's the headroom required.</p>
+  <div class="tg">
+    <button class="tb on" id="btn-budget" onclick="setInfra('budget')">
+      <span class="tbl">Budget</span>
+      <span class="tbd">3 domains · 9 inboxes · ~4,000 emails/mo capacity</span>
+      <span class="tbd" style="margin-top:6px;font-size:12px">9×€3.70 inbox + 3×€0.83 domain = €36/mo (plus platform)</span>
+    </button>
+    <button class="tb" id="btn-full" onclick="setInfra('full')">
+      <span class="tbl">Full</span>
+      <span class="tbd">5 domains · 15 inboxes · ~6,750 emails/mo capacity</span>
+      <span class="tbd" style="margin-top:6px;font-size:12px">15×€3.70 inbox + 5×€0.83 domain = €60/mo (plus platform)</span>
+    </button>
+  </div>
+  <div class="nl">Domains registered via Porkbun at €10/domain/year. 2-week warmup minimum before first send. API access is required for the selected outreach platform in every configuration. Signals OS uses that existing API connection; it does not create a second platform charge.</div>
+</div>
+
+<div class="sec">
+  <h2 class="sh">2. Lead sourcing</h2>
+  <p class="bd">All costs below are per 1,000 contacts found — not per email sent. A contact is found once; this cost does not multiply with follow-up emails.</p>
+
+  <h3 class="ss">Apify + LinkedIn Sales Navigator</h3>
+  <p class="bd">Sales Navigator gives the most granular targeting available: seniority, function, geography, company financials, and recent activity signals. We run an Apify actor against your Sales Navigator session to export results at scale without per-seat export limits. Requires an active Sales Navigator account behind it. Best for finding specific investor profiles and founders by current role, sector, and location.</p>
+
+  <h3 class="ss">Apify + Crunchbase</h3>
+  <p class="bd">The strongest dataset for funding history and investor entity data across NL, UK, and US. Tracks deal activity, funding rounds, and named investors in one place. We scrape it via an Apify actor against a Crunchbase Basic API subscription. Best for identifying active investment firms and tracking companies approaching a next-round or exit timeline.</p>
+
+  <h3 class="ss">Bespoke Companies House scraper <span class="bge bge-s">Custom build</span></h3>
+  <p class="bd">Companies House is the UK public company registry, available via a free API. A bespoke scraper pulls director age, company age, SIC codes, and filing patterns to identify UK-incorporated businesses and investment vehicles that fit the exit or seller profile. No ongoing subscription — the data is entirely free. UK targets only.</p>
+
+  <h3 class="ss">Bespoke news signal scraper <span class="bge bge-s">Custom build</span></h3>
+  <p class="bd">Monitors NL and UK business press — including Dutch-language sources — for exit-intent signals: retirement announcements, succession planning coverage, and sector consolidation stories. Each article is processed by an AI model that classifies signal strength and extracts relevant company and contact details. Deployed on a Hetzner VPS at a flat €9/month running cost regardless of volume processed. This cost is not normalised to a per-contact rate — it is a fixed monthly overhead for the signal feed.</p>
+  <p class="bd">One honest note on this method: genuinely off-market deals rarely appear in press. What the scraper surfaces is early-stage exit intent — owners who have started talking publicly about transition, not owners who have already quietly engaged a broker. Lower hit rate than database sources, but it catches contacts who have not yet been approached.</p>
+
+  <div class="sl">
+    <div class="slh">Select methods to include</div>
+    <div class="ci" id="src-salesNav" onclick="toggleSrc('salesNav')">
+      <div class="cb"><i class="ti ti-check ck" aria-hidden="true"></i></div>
+      <div class="cc"><div class="cl">LinkedIn Sales Navigator</div><div class="cd">Sales Nav seat €110/mo + Apify €27/mo · requires active Sales Nav account</div></div>
+      <div class="cp"><div class="pk">€0.14 / 1k contacts</div><div class="ps">+€137/mo</div></div>
+    </div>
+    <div class="ci" id="src-crunchbase" onclick="toggleSrc('crunchbase')">
+      <div class="cb"><i class="ti ti-check ck" aria-hidden="true"></i></div>
+      <div class="cc"><div class="cl">Crunchbase</div><div class="cd">Crunchbase Basic €45/mo + Apify €27/mo</div></div>
+      <div class="cp"><div class="pk">€6 / 1k contacts</div><div class="ps">+€72/mo</div></div>
+    </div>
+    <div class="ci" id="src-companiesHouse" onclick="toggleSrc('companiesHouse')">
+      <div class="cb"><i class="ti ti-check ck" aria-hidden="true"></i></div>
+      <div class="cc"><div class="cl">Bespoke Companies House scraper</div><div class="cd">UK only · one-time build · free public data · shared Hetzner hosting required</div></div>
+      <div class="cp"><div class="ps">€300 one-time</div><div class="pk">€0 / 1k contacts</div></div>
+    </div>
+    <div class="ci" id="src-newsScraper" onclick="toggleSrc('newsScraper')">
+      <div class="cb"><i class="ti ti-check ck" aria-hidden="true"></i></div>
+      <div class="cc"><div class="cl">Bespoke news signal scraper</div><div class="cd">NL + UK press · shared Hetzner VPS · AI-powered extraction</div></div>
+      <div class="cp"><div class="ps">€729 one-time</div><div class="pk">€9 / mo flat</div></div>
+    </div>
+  </div>
+  <div id="apify-nl" class="nl" style="display:none;">When Sales Navigator and Crunchbase are both selected, the Apify platform fee (€27/mo) is shared between them and counted once.</div>
+</div>
+
+<div class="sec">
+  <h2 class="sh">4. Email Finder, Verifier & Enrichment</h2>
+  <p class="bd">The flow is: source the contact, enrich the record with useful company and person data, find the work email, then verify it before outreach. Enrichment gives the outreach workflow better context; email finding and verification keep the sending list clean.</p>
+  <h3 class="ss">Select one enrichment platform</h3>
+  <div class="tg">
+    <button class="tb on" id="btn-enrichApollo" onclick="setEnrichment('apollo')"><span class="tbl">Apollo Basic · €45/month</span><span class="tbd">Recommended for straightforward B2B contact and company enrichment</span></button>
+    <button class="tb" id="btn-enrichClay" onclick="setEnrichment('clay')"><span class="tbl">Clay Launch · €170/month</span><span class="tbd">Multi-provider enrichment, waterfall logic, and custom research flows</span></button>
+  </div>
+  <div class="nl">Apollo is the lower-cost default for straightforward enrichment. Clay is for flexible multi-provider enrichment and custom research workflows.</div>
+  <p class="bd">AnyMailFinder finds and verifies in one step — you are only charged for emails it successfully confirms, not for lookups that come back empty. EmailShield adds a secondary verification pass, which matters for catch-all domains common in NL and UK business email setups. Both costs are per 1,000 contacts and do not multiply with follow-up emails.</p>
+  <table class="pt">
+    <thead><tr><th>Tool</th><th>Monthly plan</th><th>Per 1k contacts</th></tr></thead>
+    <tbody>
+      <tr><td>AnyMailFinder<small class="mn">Charged on verified results only · unused credits roll over</small></td><td>€39 (1,000 credits)</td><td>€39</td></tr>
+      <tr><td>EmailShield<small class="mn">10,000 verifications/mo included in base plan</small></td><td>€17</td><td>€1.70</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sec">
+  <h2 class="sh">6. Cold Email Marketing Operations <span class="bge bge-a">Optional retainer</span></h2>
+  <p class="bd">Cold email is not a set-and-forget channel. The infrastructure can stay in place, but buyer behaviour, inbox filtering, spam classification, and the copy patterns that work change over time. A campaign that performed well at launch can gradually lose replies or inbox placement if it is left unchanged.</p>
+  <p class="bd">The strategy changes based on real campaign signals rather than assumptions. For example, in Q2 2025, longer hyper-personalized emails often performed well because they appeared individually researched. By Q3, many buyers had become familiar with AI-style personalization, and shorter emails with lighter, more natural personalization often performed better. By Q1 2026, email providers had implemented more AI-driven inbox filtering. Messages needed to remain relevant and personalized enough to feel legitimate, while still reading like a direct human email rather than a polished marketing sequence, or they risked landing in the marketing section instead of the main inbox.</p>
+  <div class="sl"><div class="ci" id="src-coldOps" onclick="toggleService('coldOps')"><div class="cb"><i class="ti ti-check ck"></i></div><div class="cc"><div class="cl">Include Cold Email Marketing Operations</div><div class="cd">Quarterly strategy review, copy and sequence iteration, targeting adjustments, deliverability review, sending-volume decisions, and reporting.</div></div><div class="cp"><div class="pk">€1,722 / month</div><div class="ps">3-month initial term</div></div></div></div>
+  <p class="bd"><strong>Initial contract term: 3 months, billed monthly at €1,722.</strong> The first month establishes a baseline; months two and three are used to test and refine changes against real campaign results. After the initial term, the service can continue month-to-month, pause, or be adjusted.</p>
+  <div class="nl">Emails need to remain relevant and human enough to avoid reading like a polished marketing sequence, or they risk landing in the marketing section.</div>
+</div>
+
+<div class="sec">
+  <h2 class="sh">5. Contact volume</h2>
+  <p class="bd"><strong>Addressable market assumption:</strong> the practical addressable market is estimated at <strong>1,500–3,000 qualified contacts</strong> across the Netherlands, UK, and US. The calculator starts at 1,000 contacts per month so outreach can be paced, warmed, and refreshed rather than exhausting the market immediately.</p>
+  <p class="bd">Sending is signal-driven, not scheduled. An email sequence starts when a relevant signal is detected for a contact. Each contact receives three touchpoints — one initial email and two follow-up emails. Contacts are not re-entered into a sequence sooner than once per quarter.</p>
+  <div class="vr">
+    <input type="range" min="100" max="3000" step="100" value="1000" style="flex:1;" oninput="setVol(this.value)">
+    <div class="vv" id="vd">1,000 contacts / month</div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2 class="sh">7. Signals OS <span class="bge bge-a">Optional add-on</span></h2>
+  <p class="bd">Signals OS is a hosted, hands-off signal-to-outreach application. It provides the custom UI/UX and workflow layer that turns selected market signals into structured contact context, generates a unique initial email, and hands approved records to the selected sending platform. Follow-ups remain templated.</p>
+  <div class="sl">
+    <div class="ci" id="src-signalsOS" onclick="toggleSrc('signalsOS')">
+      <div class="cb"><i class="ti ti-check ck" aria-hidden="true"></i></div>
+      <div class="cc"><div class="cl">Include Signals OS</div><div class="cd">Custom UI/UX, hosted workflow, signal-to-outreach flows, and sending-platform handoff.</div></div>
+      <div class="cp"><div class="pk">€2,992</div><div class="ps">one-time build</div></div>
+    </div>
+  </div>
+  <div id="signals-options" style="display:none">
+    <h3 class="ss">Requirements</h3>
+    <div class="nl">Signals OS requires: <strong>(1)</strong> at least one lead-generation method selected above, and <strong>(2)</strong> either Instantly or Plusvibe with accessible API access selected in Cold Email Infrastructure. The platform subscription is counted once in infrastructure; Signals OS does not add another platform charge.</div>
+    <h3 class="ss">AI processing cost <small class="mn">Select one model</small></h3>
+    <div class="tg">
+      <button class="tb on" id="btn-haiku" onclick="setAI('haiku')"><span class="tbl">Haiku</span><span class="tbd">€5 / 1,000 articles processed<br>€5 / 1,000 emails generated</span></button>
+      <button class="tb" id="btn-sonnet" onclick="setAI('sonnet')"><span class="tbl">Sonnet 4.6</span><span class="tbd">€8 / 1,000 articles processed<br>€8 / 1,000 emails generated</span></button>
+    </div>
+    <h3 class="ss">Hosting</h3>
+    <div class="svc"><div class="svr"><span>Hetzner CX23 · 2 CPU · 4 GB RAM</span><span>€8 / month</span></div></div>
+    <h3 class="ss">Operations <small class="mn">Optional</small></h3>
+    <p class="bd">Operations covers ongoing monitoring, maintenance, workflow upkeep, bug fixes, source or API changes, and updates to the application after handover. The client can operate Signals OS independently; this is only added when they want you to keep the system running and improve it over time.</p>
+    <div class="sl">
+      <div class="ci" id="src-signalsOps" onclick="toggleService('signalsOps')">
+        <div class="cb"><i class="ti ti-check ck" aria-hidden="true"></i></div>
+        <div class="cc"><div class="cl">Include Signals OS operations</div><div class="cd">Monitoring, maintenance, workflow upkeep, fixes, and updates after handover.</div></div>
+        <div class="cp"><div class="pk">€497 / month</div><div class="ps">optional</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2 class="sh">Signals OS scope, handover & changes</h2>
+  <p class="bd">Signals OS includes the agreed interface, selected sources, workflows, approval logic, and campaign handoff described in this document. New data sources, dashboards, approval flows, integrations, or material workflow changes are scoped and priced separately.</p>
+  <p class="bd">At handover, the client receives access to the agreed VPS, application interface, database, and connected accounts. The client can operate the system independently. Optional Operations is only for clients who want ongoing monitoring, fixes, updates, and workflow upkeep from us.</p>
+</div>
+
+<div class="sec">
+  <h2 class="sh">8. Core Campaign Setup</h2>
+  <p class="bd">This one-time setup is automatically included when no custom scraper, Cold Email Marketing Operations, or Signals OS is selected.</p>
+  <div class="svc">
+    <div class="svr"><span>Core Campaign Setup</span><span>€300 one-time</span></div>
+  </div>
+  <p class="bd">It covers initial configuration of the selected third-party tools, campaign structure, inbox setup, lead-flow connections, and launch readiness. The first one to two months still need hands-on testing to confirm the chosen sources, enrichment flow, verification, sending setup, and campaign settings work together as intended.</p>
+  <div class="nl">This is not ongoing campaign management. It does not include recurring copy iteration, deliverability optimization, active campaign management, or new workflow development. It is removed when a Companies House Scraper, News Signal Scraper, Cold Email Marketing Operations, or Signals OS is selected. Standard third-party tools do not remove it.</div>
+</div>
+
+<div class="ss-wrap">
+  <h2 class="sh">Cost summary</h2><p class="bd">This is the full selected monthly cost. One-time custom builds appear separately below and are not included in this monthly figure.</p>
+  <p class="bd">Variable costs cover all three touchpoints per contact. Fixed costs apply regardless of monthly volume.</p>
+  <table class="st" id="st"></table>
+  <table class="pt" id="infra-tbl" style="margin:1rem 0 1.5rem"></table>
+  <div class="grand-total">
+    <div><span class="gt-label">Estimated total monthly cost</span><span class="gt-note">Selected tools, usage, hosting, and management</span></div>
+    <strong id="grand-total">€—</strong>
+  </div>
+  <div class="grand-total" style="background:linear-gradient(135deg,#3d4b43,#66766b);margin-top:10px">
+    <div><span class="gt-label">Estimated first-month cash outlay</span><span class="gt-note">Monthly total plus selected one-time builds</span></div>
+    <strong id="first-month-total">€—</strong>
+  </div>
+  <div id="ot-wrap" style="display:none;">
+    <h3 class="ss">One-time build costs</h3>
+    <table class="st" id="ot-tbl"></table>
+  </div>
+  <h3 class="ss">Assumptions & exclusions</h3>
+  <div class="nl">Third-party pricing can change. Actual send volume is governed by inbox capacity and deliverability health. Sources can overlap and are deduplicated before outreach. Scraper availability depends on source access and applicable terms. Campaign setup includes unsubscribe handling and agreed exclusion rules; the client remains responsible for its own legal basis, privacy, and outreach-compliance decisions.</div>
+  <div class="nl"><strong>Success fee:</strong> €1,000 is payable for each transaction closed with a contact introduced through this system within 12 months of the first introduction. “Closed” means a signed agreement with funds received, unless the parties agree otherwise in writing.</div>
+  <div class="roi">
+    <div class="roi-l">ROI reference</div>
+    <div class="roi-t" id="roi-t">One closed deal at a minimum intermediary fee of €15,000 covers approximately <strong id="roi-mo">8</strong> initial 3-month campaign cost at the selected configuration.</div>
+  </div>
+</div>
+
+<div class="proposal-cta">
+  <div>
+    <h2>Confirm your selected setup</h2>
+    <p>Confirm this configuration by email, or book a call if you would like to discuss a different scope or price.</p>
+  </div>
+  <div class="cta-actions">
+    <a id="send-selection" class="cta-primary" href="mailto:bayu@guramo.com">Confirm selected setup</a>
+    <a class="cta-secondary" href="https://cal.com/guramo/discovery" target="_blank" rel="noopener">Negotiate a better offer</a>
+  </div>
+</div>
+
+<footer class="internal-footer">
+  <span>Property of Guramo Outreach</span>
+  <span>Confidential — do not redistribute</span>
+</footer></div>
+<script>
+const INF={
+  budget:{label:'Budget',pv:34,inboxes:9,domains:3,ep:18},
+  full:  {label:'Full',  pv:34,inboxes:15,domains:5,ep:15}
+};
+const SRCS=[
+  {id:'salesNav',      label:'LinkedIn Sales Navigator',fixedBase:137,perk:0.14,ot:0,  apify:true},
+  {id:'crunchbase',    label:'Crunchbase',              fixedBase:72, perk:6,   ot:0,  apify:true},
+  {id:'companiesHouse',label:'Companies House scraper', fixedBase:0,  perk:0,   ot:300,apify:false},
+  {id:'newsScraper',   label:'News signal scraper',     fixedBase:9,  perk:0,   ot:729,apify:false}
+];
+let st={platform:'plusvibe',enrichment:'apollo',infra:'budget',sel:{signalsOS:false},vol:1000,ai:'haiku',services:{coldOps:false,signalsOps:false}};
+function setPlatform(x){st.platform=x;['plusvibe','instantly'].forEach(y=>document.getElementById('btn-platform-'+y).className='tb'+(x===y?' on':''));update();}
+function setEnrichment(x){
+  st.enrichment=x;
+  ['apollo','clay'].forEach(y=>document.getElementById('btn-enrich'+y[0].toUpperCase()+y.slice(1)).className='tb'+(x===y?' on':''));
+  update();
+}
+function setAI(x){st.ai=x;['haiku','sonnet'].forEach(y=>document.getElementById('btn-'+y).className='tb'+(x===y?' on':''));update();}
+
+function toggleService(id){st.services[id]=!st.services[id];document.getElementById('src-'+id).className='ci'+(st.services[id]?' on':'');update();}
+
+function setInfra(k){
+  st.infra=k;
+  ['budget','full'].forEach(x=>document.getElementById('btn-'+x).className='tb'+(k===x?' on':''));
+  update();
+}
+function toggleSrc(id){
+  st.sel[id]=!st.sel[id];
+  document.getElementById('src-'+id).className='ci'+(st.sel[id]?' on':'');
+  if(id==='signalsOS')document.getElementById('signals-options').style.display=st.sel[id]?'':'none';
+  update();
+}
+function setVol(v){
+  st.vol=Number(v);
+  document.getElementById('vd').textContent=Number(v).toLocaleString()+' contacts / month';
+  update();
+}
+function calc(){
+  const inf=INF[st.infra];
+  const platformFee=st.platform==='instantly'?97:77;
+  const pvPlan=platformFee;
+  const infraF=Math.round(pvPlan+(inf.inboxes*3.70)+(inf.domains*(10/12)));
+  let leadF=0,apDone=false;
+  SRCS.forEach(s=>{
+    if(!st.sel[s.id])return;
+    if(s.apify&&!apDone){leadF+=27;apDone=true;}
+    leadF+=s.fixedBase;
+  });
+  const needsHetzner=st.sel.companiesHouse||st.sel.newsScraper||st.sel.signalsOS;
+  const enrichF=st.enrichment==='apollo'?45:170;
+  const totF=infraF+leadF+17+enrichF+(needsHetzner?8:0);
+  const sendP=inf.ep*3;
+  let leadP=0;
+  SRCS.forEach(s=>{if(st.sel[s.id])leadP+=s.perk;});
+  const totP=sendP+leadP+39+1.70+(st.sel.signalsOS?2*(st.ai==='haiku'?5:8):0);
+  let ot=0,otI=[];
+  SRCS.forEach(s=>{if(st.sel[s.id]&&s.ot>0){ot+=s.ot;otI.push({l:s.label,c:s.ot});}});
+  const varV=(st.vol/1000)*totP;
+  const opM=totF+varV;
+  return{inf,pvPlan,infraF,leadF,totF,sendP,leadP,totP,varV,opM,ot,otI,roiMo:Math.floor(15000/opM),needsHetzner};
+}
+function eu(n,d=0){return'€'+n.toLocaleString('en',{minimumFractionDigits:d,maximumFractionDigits:d});}
+function update(){
+  const coreSetup=!(st.sel.companiesHouse||st.sel.newsScraper||st.sel.signalsOS||st.services.coldOps);
+  const r=calc();
+  if(coreSetup){r.otI.push({l:'Core Campaign Setup',c:300});r.ot+=300;}
+  if(st.sel.signalsOS){r.otI.push({l:'Signals OS setup — UI/UX and workflow flows',c:2992});r.ot+=2992;}
+  const inf=r.inf;
+  const volumeFactor=st.vol/1000;
+
+  const monthlyItems=[
+    {label:st.platform==='instantly'?'Instantly Hypergrowth':'Plusvibe Business',detail:'Platform subscription',cost:r.pvPlan},
+    {label:`${inf.inboxes} Outlook inboxes`,detail:'€3.70/inbox/mo',cost:Math.round(inf.inboxes*3.70)},
+    {label:`${inf.domains} sending domains`,detail:'€10/domain/yr',cost:Math.round(inf.domains*(10/12))},
+    ...(SRCS.some(x=>st.sel[x.id]&&x.apify)?[{label:'Apify',detail:'Shared scraper platform',cost:27}]:[]),
+    ...SRCS.filter(x=>st.sel[x.id]).flatMap(x=>x.fixedBase?[{label:x.label,detail:x.apify?'Source workflow subscription':'Source subscription',cost:x.fixedBase}]:[]),
+    {label:st.enrichment==='apollo'?'Apollo Basic':'Clay Launch',detail:'Enrichment platform',cost:st.enrichment==='apollo'?45:170},
+    {label:'EmailShield',detail:'10k verifications/mo included',cost:17},
+    ...(r.needsHetzner?[{label:'Hetzner CX23',detail:'Shared VPS hosting',cost:8}]:[])
+  ].filter(x=>x.cost>0);
+  const monthlyTotal=monthlyItems.reduce((a,x)=>a+x.cost,0);
+
+  const variableItems=[
+    {label:'Email sending usage',detail:'per 1,000 contacts × 3 touchpoints',cost:inf.ep*3,calc:`${inf.ep}¢ × 3`},
+    ...SRCS.filter(x=>st.sel[x.id]&&x.perk).map(x=>({label:`${x.label} usage`,detail:'per 1,000 contacts',cost:x.perk,calc:`€${x.perk}`})),
+    {label:'AnyMailFinder',detail:'per 1,000 verified contacts',cost:39,calc:'€39'},
+    ...(volumeFactor?[{label:'EmailShield overage',detail:'per 1,000 verifications over base',cost:1.70,calc:'€1.70'}]:[]),
+    ...(st.sel.signalsOS?[
+      {label:st.ai==='haiku'?'Claude Haiku — signal processing':'Claude Sonnet 4.6 — signal processing',detail:'per 1,000 articles',cost:st.ai==='haiku'?5:8,calc:`€${st.ai==='haiku'?5:8}`},
+      {label:st.ai==='haiku'?'Claude Haiku — email generation':'Claude Sonnet 4.6 — email generation',detail:'per 1,000 emails',cost:st.ai==='haiku'?5:8,calc:`€${st.ai==='haiku'?5:8}`}
+    ]:[])
+  ].filter(x=>x.cost>0);
+  const variableTotal=variableItems.reduce((a,x)=>a+x.cost,0);
+
+  const retItems=[...(st.services.coldOps?[{label:'Done-for-You Cold Email Operations',detail:'Monthly · 3-month term',cost:1722}]:[]),
+    ...(st.services.signalsOps?[{label:'Signals OS Operations',detail:'Monthly',cost:497}]:[])
+  ].filter(x=>x.cost>0);
+  const retTotal=retItems.reduce((a,x)=>a+x.cost,0);
+  const otrItems=[...r.otI.map(i=>({label:i.l,detail:'One-time',cost:i.c})),...retItems].filter(x=>x.cost>0);
+  const otrTotal=otrItems.reduce((a,x)=>a+x.cost,0);
+
+  const otItems=r.otI.map(i=>({label:i.l,detail:'One-time',cost:i.c})).filter(x=>x.cost>0);
+  const otTotal=otItems.reduce((a,x)=>a+x.cost,0);
+  const itemizedRecurringTotal=monthlyTotal+volumeFactor*variableTotal+retTotal;
+
+  document.getElementById('infra-tbl').innerHTML=`<thead><tr><th>Item</th><th>Detail</th><th>Rate</th></tr></thead><tbody>${
+    monthlyItems.length?`<tr class="gh"><td>Monthly fixed costs</td><td></td><td></td></tr>${monthlyItems.map(x=>`<tr class="ind"><td>${x.label}</td><td>${x.detail}</td><td>${eu(x.cost,2)}</td></tr>`).join('')}<tr class="tr"><td>Monthly fixed total</td><td></td><td>${eu(monthlyTotal,2)}</td></tr>`:''
+  }${
+    variableItems.length?`<tr class="hr"><td colspan="3"></td></tr><tr class="gh"><td>Per 1,000 contacts/emails</td><td></td><td></td></tr>${variableItems.map(x=>`<tr class="ind"><td>${x.label}</td><td>${x.detail}</td><td>${x.calc||eu(x.cost,2)}</td></tr>`).join('')}<tr class="tr"><td>Variable subtotal</td><td>× ${(st.vol/1000)} (${st.vol.toLocaleString()} contacts)</td><td>${eu(variableTotal,2)} / 1k → ${eu(volumeFactor*variableTotal,2)}</td></tr>`:''
+  }${
+    retItems.length?`<tr class="hr"><td colspan="3"></td></tr><tr class="gh"><td>Retainers (monthly)</td><td></td><td></td></tr>${retItems.map(x=>`<tr class="ind"><td>${x.label}</td><td>${x.detail}</td><td>${eu(x.cost,2)}</td></tr>`).join('')}<tr class="tr"><td>Retainer total</td><td></td><td>${eu(retTotal,2)}</td></tr>`:''
+  }${
+    otItems.length?`<tr class="hr"><td colspan="3"></td></tr><tr class="gh"><td>One-time build costs</td><td></td><td></td></tr>${otItems.map(x=>`<tr class="ind"><td>${x.label}</td><td>${x.detail}</td><td>${eu(x.cost,2)}</td></tr>`).join('')}<tr class="tr"><td>One-time total</td><td></td><td>${eu(otTotal,2)}</td></tr>`:''
+  }</tbody>`;
+  const apifyNote=document.getElementById('apify-nl');
+  if(apifyNote)apifyNote.style.display=(st.sel.salesNav&&st.sel.crunchbase)?'':'none';
+  const ret=(st.services.coldOps?1722:0)+(st.services.signalsOps?497:0);
+  document.getElementById('grand-total').textContent=eu(itemizedRecurringTotal,0);
+  document.getElementById('roi-mo').textContent=(15000/(itemizedRecurringTotal*3)).toFixed(1);
+  const selected=[
+    `Infrastructure: ${st.platform==='instantly'?'Instantly Hypergrowth':'Plusvibe Business'}`,
+    `Enrichment: ${st.enrichment==='clay'?'Clay Launch':'Apollo Basic'}`,
+    `Contact volume: ${st.vol.toLocaleString()} / month`,
+    ...Object.entries(st.sel).filter(([,v])=>v).map(([k])=>`Selected: ${k}`),
+    ...(st.services.coldOps?['Done-for-You Cold Email Operations']:[]),
+    ...(st.services.signalsOps?['Signals OS Operations']:[]),
+    `Recurring total: ${eu(itemizedRecurringTotal,0)} / month`,
+    `One-time total: ${eu(r.ot,0)}`,
+    `First-month total: ${eu(itemizedRecurringTotal+r.ot,0)}`
+  ];
+  const subject=encodeURIComponent('Selected Guramo Outreach setup');
+  const body=encodeURIComponent(`Hi Bayu,\n\nI would like to discuss this selected setup:\n\n${selected.join('\n')}\n\nThanks,`);
+  const sendSelection=document.getElementById('send-selection');
+  if(sendSelection) sendSelection.href=`mailto:bayu@guramo.com?subject=${subject}&body=${body}`;
+  const signalBuild=0;
+  document.getElementById('first-month-total').textContent=eu(r.opM+ret+r.ot+signalBuild,0);
+  const otw=document.getElementById('ot-wrap');
+  otw.style.display='none';
+}
+update();
+</script>
